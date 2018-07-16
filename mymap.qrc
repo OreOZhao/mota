@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/myMap">
+        <file>hero.png</file>
+        <file>back.png</file>
+    </qresource>
+</RCC>
