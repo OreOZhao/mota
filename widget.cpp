@@ -44,9 +44,7 @@ Widget::Widget(QWidget *parent) :
 
     client->hero->itempix = scene->addPixmap(*client->hero->pix);
     client->hero->setPos(240, 40);
-    client->brick->itempix= scene->addPixmap(*client->brick->pix);
-    client->brick->setPos(480,80);
-    client->show();
+
 
     connect(client->hero,&Hero::buySignal,this,&Widget::blockUpdate);
     connect(client->hero,&Hero::pkSignal,this,&Widget::blockUpdate);

@@ -44,8 +44,9 @@ public:
     void setPos(qreal x,qreal y);
     QPixmap *pix;
     QPointF cpos,arrivepos;
-    QTimer *timer;
 
+    int getFloor(){return floor;}
+    void setFloor(int f){floor=f;}
     /*------block------*/
     void fight(Block& monster);
     void buy(Block& busiman);
@@ -60,11 +61,14 @@ private:
     int defenceVal=10;
     int solLevel=1;
     int lifeVal=1000;
+    int floor=0;
 signals:
+
+
     void pkSignal();
     void buySignal();
     void pickSignal();
-    void floorSignal();
+
 public slots:
 
 };

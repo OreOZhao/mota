@@ -29,14 +29,16 @@ SOURCES += \
     gamewindow.cpp \
     info.cpp \
     block.cpp \
-    hero.cpp
+    hero.cpp \
+    monster.cpp
 
 HEADERS += \
         widget.h \
     gamewindow.h \
     info.h \
     block.h \
-    hero.h
+    hero.h \
+    monster.h
 
 FORMS += \
         widget.ui

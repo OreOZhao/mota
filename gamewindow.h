@@ -10,9 +10,10 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QGraphicsItemGroup>
-#include "Block.h"
+#include "block.h"
 
 class Hero;
+class Block;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
@@ -24,14 +25,17 @@ public:
     Hero *hero;
     bool canArrive(qreal x,qreal y);
     bool canArrive(QPointF pos);
-    void moveTo(qreal x,qreal y);
-    void moveTo(bool right,bool up);
-    int map[11][11]={0};
-    Block *brick;
-
+    void floorUpdate(int f,bool up);//true up,false down
+    int flag[9][11][11]={0};
+    Block *bmap[9][11][11];
+    //0:    1:block     2:floor
+  //  Block *brick;
+    void setMap();
 
 signals:
-
+    void meetBlock(int f,int a,int b);
+    void floorUp();
+    void floorDown();
 public slots:
 };
 
