@@ -1,6 +1,6 @@
 #include "monster.h"
 
-monster::monster()
+Monster::Monster()
 {
 
 }
