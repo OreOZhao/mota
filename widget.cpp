@@ -7,16 +7,18 @@
 #include "hero.h"
 #include "gamewindow.h"
 #include <QHBoxLayout>
+#include <QDebug>
 
+extern int currentF;
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
+    // show data
+    /*
     QHBoxLayout *layout=new QHBoxLayout;
     layout->addWidget(ui->Level);
-
     layout->addWidget(ui->lifeValue);
     layout->addWidget(ui->attackValue);
     layout->addWidget(ui->defenceValue);
@@ -26,29 +28,57 @@ Widget::Widget(QWidget *parent) :
     layout->addWidget(ui->blueKey);
     layout->addWidget(ui->redKey);
     layout->addWidget(ui->floor);
-
-
     setLayout(layout);
-
+*/
+    //scene & view
     scene = new QGraphicsScene(this);
-    client =  new GameWindow(this);//view
-    client->scene = scene;
-    client->setScene(scene);
-    client->resize(720,520);
-    client->setMinimumSize(360,260);
-    client->setMaximumSize(720,520);
-    client->setFixedHeight(520);  //view
-    client->setFixedWidth(720);
-    scene->setSceneRect(0,0,720,520); //scene
-    scene->addPixmap(QPixmap(":/myMap/back.png"));
 
-    client->hero->itempix = scene->addPixmap(*client->hero->pix);
-    client->hero->setPos(240, 40);
+    for(int i=0;i<9;i++){
+        client[i] =  new GameWindow(this);//view
+        client[i]->scene = scene;
+        client[i]->setScene(scene);
+        client[i]->resize(720,520);
+        client[i]->setMinimumSize(360,260);
+        client[i]->setMaximumSize(720,520);
+        client[i]->setFixedHeight(520);  //view
+        client[i]->setFixedWidth(720);
+        scene->setSceneRect(0,0,720,520); //scene
+        scene->addPixmap(QPixmap(":/myMap/back.png"));
+
+        //hero
+        client[i]->hero->itempix = scene->addPixmap(*client[i]->hero->pix);
+        client[i]->hero->setXY(0, 0);
+        client[i]->hero->setFloor(i);
+
+        client[i]->setMap();
+        for(int x=0;x<11;x++){
+            for(int y=0;y<11;y++){
+                if(client[i]->flag[i][x][y]!=0)
+                {
+                client[i]->bmap[i][x][y]->itempix=scene->addPixmap(*client[i]->bmap[i][x][y]->pix);
+                client[i]->bmap[i][x][y]->setXY(x,y);
+                }
+            }
+        }
+    }
+    client[0]->upF=client[1];
+    for(int i=1;i<8;i++)
+    {
+        client[i]->upF=client[i+1];
+        client[i]->downF=client[i-1];
+    }
+    client[8]->downF=client[7];
+
+    connect(client[currentF],&GameWindow::floorUp,this,&Widget::floUp);
+    connect(client[currentF],&GameWindow::floorDown,this,&Widget::floDown);
 
 
-    connect(client->hero,&Hero::buySignal,this,&Widget::blockUpdate);
-    connect(client->hero,&Hero::pkSignal,this,&Widget::blockUpdate);
-    connect(client->hero,&Hero::pickSignal,this,&Widget::blockUpdate);
+
+    for(int i=0;i<9;i++){
+        if(i==currentF){client[i]->show();qDebug()<<i<<":show";}
+        else {client[i]->hide();qDebug()<<i<<":hide";}
+
+    }
 
 }
 
@@ -56,7 +86,7 @@ Widget::~Widget()
 {
     delete ui;
 }
-
+/*
 void Widget::paintEvent(QPaintEvent *event)
 {
     client->setFixedHeight(520);
@@ -64,7 +94,8 @@ void Widget::paintEvent(QPaintEvent *event)
     mapWidth=this->width();
     mapHeight=this->height();
 }
-
+*/
+/*
 void Widget::blockUpdate()
 {
     ui->Level->display(client->hero->getLevel());
@@ -78,3 +109,34 @@ void Widget::blockUpdate()
     ui->redKey->display(client->hero->getRKey());
     ui->blueKey->display(client->hero->getBKey());
 }
+*/
+
+void Widget::floUp()
+{
+    qDebug()<<"upupup";
+    currentF++;
+    for(int i=0;i<9;i++){
+        if(i==currentF){client[i]->show();qDebug()<<i<<":show";}
+        else {client[i]->hide();qDebug()<<i<<":hide";}
+    }
+    client[currentF]->hero->setXY(0,0);
+    client[currentF]->hero->copyHero(client[currentF-1]->hero);
+
+
+    qDebug()<<"cf"<<currentF;
+
+
+}
+
+void Widget::floDown()
+{
+    client[currentF]->setVisible(false);
+
+    client[currentF]->downF->setVisible(true);
+    currentF--;
+}
+
+//bmap & flag set to static data in gamewindow
+//initialize bmap & flag
+
+//currentfloor global variable

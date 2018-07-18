@@ -8,11 +8,12 @@ Monster::Monster(int a,int b,int c,int d,int e)
     money=d;
     experience=e;
 }
-void Monster::Action(Hero& hero)
+
+void Monster::action(Hero* hero)
 {
-    int run=life/(hero.getAtt()-defence);
-    hero.getLife()=hero.getLife()-run*(attack-hero.getDef())*attack;
-    hero.getMoney()=hero.getMoney()+money;
-    hero.getExp()=hero.getExp()+experience;
-    Monster.hide();
+     int run=life/(hero->getAtt()-defence);
+     hero->setLife(hero->getLife()-run*(attack-hero->getDef())*attack);
+     hero->setMoney(hero->getMoney()+money);
+     hero->setExp(hero->getExp()+experience);
+     hide();
 }

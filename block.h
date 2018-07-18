@@ -3,19 +3,24 @@
 
 #include <QWidget>
 #include <QGraphicsPixmapItem>
-#include"hero.h"
+#include "hero.h"
+#include "gamewindow.h"
 
+class Hero;
 class Block : public QWidget
 {
     Q_OBJECT
 public:
-   virtual void Action(Hero&)=0;
-   void Block::setPos(qreal x, qreal y);
-   explicit Block(QWidget *parent = nullptr);
-   QGraphicsPixmapItem *itempix;
-   QPixmap *pix;
-   QPointF cpos;
-   void setPos(qreal x,qreal y);
+    explicit Block(QWidget *parent = nullptr);
+    int floor;
+    int x;
+    int y;
+    QGraphicsPixmapItem *itempix;
+    QPixmap *pix;
+    QPointF cpos;
+    void setPos(qreal x,qreal y);
+    void setXY(int a,int b);
+    virtual void action(Hero *hero );
 signals:
 
 public slots:

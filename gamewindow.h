@@ -11,25 +11,30 @@
 #include <QWidget>
 #include <QGraphicsItemGroup>
 #include "block.h"
-
+#include "widget.h"
+extern int currentF;
 class Hero;
 class Block;
+class Widget;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
-    friend class Hero;
+
+//    static Hero *hero;
 public:
+
     explicit GameWindow(QWidget *parent = nullptr);
     void keyPressEvent(QKeyEvent *event);
     QGraphicsScene *scene;
-    Hero *hero;
+    GameWindow *upF;
+    GameWindow *downF;
+    Hero* hero;
     bool canArrive(qreal x,qreal y);
     bool canArrive(QPointF pos);
-    void floorUpdate(int f,bool up);//true up,false down
     int flag[9][11][11]={0};
     Block *bmap[9][11][11];
-    //0:    1:block     2:floor
-  //  Block *brick;
+    //0:    1:block     2:floorup   3:down
+
     void setMap();
 
 signals:

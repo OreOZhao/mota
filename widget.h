@@ -8,6 +8,8 @@
 #include <QPaintEvent>
 #include <QKeyEvent>
 
+
+
 namespace Ui {
 class Widget;
 }
@@ -19,15 +21,19 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    void paintEvent(QPaintEvent *event);
-    GameWindow *client;
+   // void paintEvent(QPaintEvent *event);
+    GameWindow *client[9];
+
     QGraphicsScene *scene;
+
+
 
 private:
     Ui::Widget *ui;
-private slots:
-    void blockUpdate();
-
+public slots:
+  //  void blockUpdate();
+    void floUp();
+    void floDown();
 };
 
 #endif // WIDGET_H
