@@ -9,7 +9,8 @@ GameWindow::GameWindow(QWidget *parent) : QGraphicsView(parent)
 {
     hero=new Hero;
     Block * temp;
-
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
@@ -125,12 +126,48 @@ bool GameWindow::canArrive(qreal x,qreal y)
 
 void GameWindow::setMap(int i)//i==floor , loop in the widget constructor
 {
-    switch(i):
+    switch(i)
     {
-        case 0:
-        bmap[1][1]=new Monster();
-        flag[i][1][1]=2;
-
+    case 0:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 1:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 2:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 3:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 4:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+    case 5:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 6:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 7:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 8:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    case 9:
+        bmap[i][i]=new Block;
+        flag[i][i][i]=2;
+        break;
+    }
     /*
     bmap[1][2][2]=new Block;
     flag[1][2][2]=2;
