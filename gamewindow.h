@@ -13,6 +13,7 @@
 #include "block.h"
 #include "widget.h"
 extern int currentF;
+extern int flag[9][11][11];
 class Hero;
 class Block;
 class Widget;
@@ -31,11 +32,11 @@ public:
     Hero* hero;
     bool canArrive(qreal x,qreal y);
     bool canArrive(QPointF pos);
-    int flag[9][11][11]={0};
-    Block *bmap[9][11][11];
-    //0:    1:block     2:floorup   3:down
 
-    void setMap();
+    Block *bmap[11][11];
+    //flag value      0:    1:block     2:floorup   3:down
+
+    void setMap(int i);
 
 signals:
     void meetBlock(int f,int a,int b);
