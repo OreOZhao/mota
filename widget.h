@@ -21,7 +21,7 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-   // void paintEvent(QPaintEvent *event);
+    void paintEvent(QPaintEvent *event);
     GameWindow *client[9];
 
     QGraphicsScene *scene;

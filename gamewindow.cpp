@@ -3,6 +3,8 @@
 #include "widget.h"
 extern int currentF;
 extern Hero* currentH;
+int flag[9][11][11];
+class Monster;
 GameWindow::GameWindow(QWidget *parent) : QGraphicsView(parent)
 {
     hero=new Hero;
@@ -32,7 +34,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x,y-40);break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(currentH);
+                bmap[a][b]->action(currentH);
                 break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==2)//floor up
             {
@@ -51,7 +53,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x,y+40);break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(currentH);
+                bmap[a][b]->action(currentH);
 
                 break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==2)//floor up
@@ -72,7 +74,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x+40,y);break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(currentH);
+                bmap[a][b]->action(currentH);
                 break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==2)//floor up
             {
@@ -91,7 +93,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x-40,y);break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(currentH);
+                bmap[a][b]->action(currentH);
 
                 break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==2)//floor up
@@ -121,10 +123,15 @@ bool GameWindow::canArrive(qreal x,qreal y)
     return true;
 }
 
-void GameWindow::setMap()
+void GameWindow::setMap(int i)//i==floor , loop in the widget constructor
 {
-    bmap[0][1][1]=new Block;
-    flag[0][1][1]=2;
+    switch(i):
+    {
+        case 0:
+        bmap[1][1]=new Monster();
+        flag[i][1][1]=2;
+
+    /*
     bmap[1][2][2]=new Block;
     flag[1][2][2]=2;
     bmap[7][3][3]=new Block;
@@ -133,6 +140,7 @@ void GameWindow::setMap()
     flag[3][4][4]=2;
     bmap[8][8][8]=new Block;
     flag[8][8][8]=2;
+    */
 }
 /*
 void GameWindow::floorUpdate(int f,bool up)

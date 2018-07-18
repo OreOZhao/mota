@@ -8,16 +8,19 @@
 #include "gamewindow.h"
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QThread>
 Hero *currentH;
 extern int currentF;
+extern int flag[9][11][11];
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
     // show data
-    /*
+
     QHBoxLayout *layout=new QHBoxLayout;
+    /*
     layout->addWidget(ui->Level);
     layout->addWidget(ui->lifeValue);
     layout->addWidget(ui->attackValue);
@@ -47,20 +50,41 @@ Widget::Widget(QWidget *parent) :
 
         //hero
         client[i]->hero->itempix = scene->addPixmap(*client[i]->hero->pix);
-        client[i]->hero->setXY(0, 0);
+        client[i]->hero->setXY(i, 0);
         client[i]->hero->setFloor(i);
 
-        client[i]->setMap();
+        client[i]->setMap(i);
+        layout->addWidget(client[i]->bmap[1][1]);
+        qDebug()<<i<<"add";
         for(int x=0;x<11;x++){
             for(int y=0;y<11;y++){
-                if(client[i]->flag[i][x][y]!=0)
+                if(flag[i][x][y]!=0)
                 {
-                client[i]->bmap[i][x][y]->itempix=scene->addPixmap(*client[i]->bmap[i][x][y]->pix);
-                client[i]->bmap[i][x][y]->setXY(x,y);
+                client[i]->bmap[x][y]->itempix=scene->addPixmap(*client[i]->bmap[x][y]->pix);
+                client[i]->bmap[x][y]->setXY(x,y);
                 }
             }
         }
+        if(i==currentF){
+            qDebug()<<"currentF:"<<currentF;
+            client[i]->show();
+
+            client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
+            currentH=client[currentF]->hero;
+            qDebug()<<i<<":show";
+        }
+        else {
+            client[i]->hide();
+     //       client[i]->setWindowFlags(Qt::WindowStaysOnBottomHint);
+            qDebug()<<i<<":hide";
+        }
+
     }
+    client[8]->setVisible(false);
+    client[0]->setVisible(true);
+    setLayout(layout);
+    update();
+
     client[0]->upF=client[1];
     for(int i=1;i<8;i++)
     {
@@ -71,31 +95,47 @@ Widget::Widget(QWidget *parent) :
 
     connect(client[currentF],&GameWindow::floorUp,this,&Widget::floUp);
     connect(client[currentF],&GameWindow::floorDown,this,&Widget::floDown);
-
-
-
+/*
     for(int i=0;i<9;i++){
-        if(i==currentF){client[i]->show();    client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);currentH=client[currentF]->hero;qDebug()<<i<<":show";}
-        else {client[i]->hide();    client[i]->setWindowFlags(Qt::WindowStaysOnBottomHint);qDebug()<<i<<":hide";}
+        if(i==currentF){
+            qDebug()<<currentF;
+            client[i]->hide();
+     //       client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
+            currentH=client[currentF]->hero;
+            qDebug()<<i<<":show";
+        }
+        else {
+            client[i]->hide();
+     //       client[i]->setWindowFlags(Qt::WindowStaysOnBottomHint);
+            qDebug()<<i<<":hide";
+        }
 
     }
-
-
+    */
+    /*
+    currentF=0;
+    currentH=client[0]->hero;
+    client[0]->setMap();
+    client[0]->show();
+    client[0]->setWindowFlags(Qt::WindowStaysOnBottomHint);
+*/
 }
 
 Widget::~Widget()
 {
     delete ui;
 }
-/*
+
 void Widget::paintEvent(QPaintEvent *event)
 {
-    client->setFixedHeight(520);
-    client->setFixedWidth(720);
+    for(int i=0;i<9;i++){
+    client[i]->setFixedHeight(520);
+    client[i]->setFixedWidth(720);
+    }
     mapWidth=this->width();
     mapHeight=this->height();
 }
-*/
+
 /*
 void Widget::blockUpdate()
 {
@@ -114,7 +154,7 @@ void Widget::blockUpdate()
 
 void Widget::floUp()
 {
-    qDebug()<<"upupup";
+    qDebug()<<currentF<<"upupup";
 
     currentF++;
     for(int i=0;i<9;i++){
@@ -123,7 +163,7 @@ void Widget::floUp()
             currentH=client[currentF]->hero;
             qDebug()<<i<<":show";
         }
-        else {
+        else{
             client[i]->hide();
             qDebug()<<i<<":hide";
         }
@@ -132,8 +172,6 @@ void Widget::floUp()
     qDebug()<<client[8]->isVisible();
     client[currentF]->hero->setXY(0,0);
     client[currentF]->hero->copyHero(client[currentF-1]->hero);
-
-
 
     qDebug()<<"cf"<<currentF<<client[currentF]->isVisible();
     client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
