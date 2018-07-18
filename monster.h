@@ -3,10 +3,10 @@
 
 #include <block.h>
 
-class monster:public Block
+class Monster:public Block
 {
 public:
-    monster();
+    Monster();
 };
 
 #endif // MONSTER_H
