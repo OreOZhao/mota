@@ -8,7 +8,7 @@
 #include "gamewindow.h"
 #include <QHBoxLayout>
 #include <QDebug>
-
+Hero *currentH;
 extern int currentF;
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -75,10 +75,11 @@ Widget::Widget(QWidget *parent) :
 
 
     for(int i=0;i<9;i++){
-        if(i==currentF){client[i]->show();qDebug()<<i<<":show";}
-        else {client[i]->hide();qDebug()<<i<<":hide";}
+        if(i==currentF){client[i]->show();    client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);currentH=client[currentF]->hero;qDebug()<<i<<":show";}
+        else {client[i]->hide();    client[i]->setWindowFlags(Qt::WindowStaysOnBottomHint);qDebug()<<i<<":hide";}
 
     }
+
 
 }
 
@@ -114,22 +115,34 @@ void Widget::blockUpdate()
 void Widget::floUp()
 {
     qDebug()<<"upupup";
+
     currentF++;
     for(int i=0;i<9;i++){
-        if(i==currentF){client[i]->show();qDebug()<<i<<":show";}
-        else {client[i]->hide();qDebug()<<i<<":hide";}
+        if(i==currentF){
+            client[i]->show();
+            currentH=client[currentF]->hero;
+            qDebug()<<i<<":show";
+        }
+        else {
+            client[i]->hide();
+            qDebug()<<i<<":hide";
+        }
     }
+
+    qDebug()<<client[8]->isVisible();
     client[currentF]->hero->setXY(0,0);
     client[currentF]->hero->copyHero(client[currentF-1]->hero);
 
 
-    qDebug()<<"cf"<<currentF;
 
-
+    qDebug()<<"cf"<<currentF<<client[currentF]->isVisible();
+    client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
+    update();
 }
 
 void Widget::floDown()
 {
+
     client[currentF]->setVisible(false);
 
     client[currentF]->downF->setVisible(true);

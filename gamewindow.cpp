@@ -2,6 +2,7 @@
 #include <QDebug>
 #include "widget.h"
 extern int currentF;
+extern Hero* currentH;
 GameWindow::GameWindow(QWidget *parent) : QGraphicsView(parent)
 {
     hero=new Hero;
@@ -11,12 +12,14 @@ GameWindow::GameWindow(QWidget *parent) : QGraphicsView(parent)
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
-    int x=hero->cpos.x();
-    int y=hero->cpos.y();
+
+    int x=currentH->cpos.x();
+    int y=currentH->cpos.y();
     int f=currentF;
-    qDebug()<<"hf"<<f;
-    int a=(hero->cpos.x()-240)/40;
-    int b=(hero->cpos.y()-40)/40;
+    qDebug()<<"hf"<<f<<currentH->getFloor();
+    int a=(currentH->cpos.x()-240)/40;
+    int b=(currentH->cpos.y()-40)/40;
+
     {
 
         switch(event->key())
@@ -26,10 +29,10 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             b=b-1;
             if(canArrive(x,y-40)&&flag[f][a][b]==0)
             {
-                hero->setPos(x,y-40);break;
+                currentH->setPos(x,y-40);break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(hero);
+                bmap[f][a][b]->action(currentH);
                 break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==2)//floor up
             {
@@ -45,10 +48,11 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             b=b+1;
             if(canArrive(x,y+40)&&flag[f][a][b]==0)
             {
-                hero->setPos(x,y+40);break;
+                currentH->setPos(x,y+40);break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(hero);
+                bmap[f][a][b]->action(currentH);
+
                 break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==2)//floor up
             {
@@ -65,10 +69,10 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             a=a+1;
             if(canArrive(x+40,y)&&flag[f][a][b]==0)
             {
-                hero->setPos(x+40,y);break;
+                currentH->setPos(x+40,y);break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(hero);
+                bmap[f][a][b]->action(currentH);
                 break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==2)//floor up
             {
@@ -84,10 +88,10 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             a=a-1;
             if(canArrive(x-40,y)&&flag[f][a][b]==0)
             {
-                hero->setPos(x-40,y);break;
+                currentH->setPos(x-40,y);break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==1)
             {
-                bmap[f][a][b]->action(hero);
+                bmap[f][a][b]->action(currentH);
 
                 break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==2)//floor up
@@ -101,6 +105,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             }
             else break;
         }
+        qDebug()<<currentH->cpos.x()<<currentH->cpos.y();
         update();
         }
 }
@@ -109,7 +114,8 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 bool GameWindow::canArrive(qreal x,qreal y)
 {
     //true: limited in map
-    //false: out of map 
+    //false: out of map or meet block
+    //if block, stop and action, no move
     if(x<=200 || x>=680 || y<=0 || y>=480)
         return false;
     return true;
@@ -117,16 +123,15 @@ bool GameWindow::canArrive(qreal x,qreal y)
 
 void GameWindow::setMap()
 {
-    //test
     bmap[0][1][1]=new Block;
     flag[0][1][1]=2;
     bmap[1][2][2]=new Block;
     flag[1][2][2]=2;
-    bmap[2][3][3]=new Block;
-    flag[2][3][3]=2;
+    bmap[7][3][3]=new Block;
+    flag[7][3][3]=2;
     bmap[3][4][4]=new Block;
     flag[3][4][4]=2;
-    bmap[8][8][8]=new Block;//这个可以显示
+    bmap[8][8][8]=new Block;
     flag[8][8][8]=2;
 }
 /*
