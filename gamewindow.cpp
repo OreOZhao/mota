@@ -49,7 +49,6 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
             }else if(canArrive(x,y+40)&&flag[f][a][b]==1)
             {
                 bmap[f][a][b]->action(hero);
-                bmap[f][a][b]->deleteLater();
                 break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==2)//floor up
             {
@@ -110,8 +109,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 bool GameWindow::canArrive(qreal x,qreal y)
 {
     //true: limited in map
-    //false: out of map or meet block
-    //if block, stop and action, no move
+    //false: out of map 
     if(x<=200 || x>=680 || y<=0 || y>=480)
         return false;
     return true;
@@ -119,6 +117,7 @@ bool GameWindow::canArrive(qreal x,qreal y)
 
 void GameWindow::setMap()
 {
+    //test
     bmap[0][1][1]=new Block;
     flag[0][1][1]=2;
     bmap[1][2][2]=new Block;
@@ -127,7 +126,7 @@ void GameWindow::setMap()
     flag[2][3][3]=2;
     bmap[3][4][4]=new Block;
     flag[3][4][4]=2;
-    bmap[8][8][8]=new Block;
+    bmap[8][8][8]=new Block;//这个可以显示
     flag[8][8][8]=2;
 }
 /*
