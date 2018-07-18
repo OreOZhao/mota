@@ -30,7 +30,8 @@ SOURCES += \
     info.cpp \
     block.cpp \
     hero.cpp \
-    monster.cpp
+    monster.cpp \
+    floor.cpp
 
 HEADERS += \
         widget.h \
@@ -38,7 +39,8 @@ HEADERS += \
     info.h \
     block.h \
     hero.h \
-    monster.h
+    monster.h \
+    floor.h
 
 FORMS += \
         widget.ui

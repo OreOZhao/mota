@@ -8,18 +8,23 @@
 #include <QGraphicsPixmapItem>
 #include <block.h>
 
+extern int currentF;
 class Hero : public QWidget
 {
     Q_OBJECT
+
+    //explicit Hero(QWidget *parent = nullptr);
 public:
 
     explicit Hero(QWidget *parent = nullptr);
 
     QGraphicsPixmapItem *itempix;
+
+    void copyHero(Hero *hero);
     /*------keys------*/
-    void RKeyPlus(){redKey++;}
-    void GKeyPlus(){goldKey++;}
-    void BKeyPlus(){blueKey++;}
+    void setRKey(int r){redKey=r;}
+    void setGKey(int g){goldKey=g;}
+    void setBKey(int b){blueKey=b;}
 
     int getRKey(){return redKey;}
     int getGKey(){return goldKey;}
@@ -32,7 +37,7 @@ public:
     int getDef(){return defenceVal;}
     int getExp(){return experVal;}
     /*------level------*/
-    void levelUp(){solLevel++;}
+    void setLevel(int l){solLevel=l;}
     int getLevel(){return solLevel;}
     /*------life------*/
     void setLife(int l){lifeVal=l;}
@@ -41,7 +46,9 @@ public:
     void setMoney(int m){moneyVal=m;}
     int getMoney(){return moneyVal;}
     /*------position&move------*/
+
     void setPos(qreal x,qreal y);
+    void setXY(int a,int b);
     QPixmap *pix;
     QPointF cpos,arrivepos;
 
@@ -61,7 +68,7 @@ private:
     int defenceVal=10;
     int solLevel=1;
     int lifeVal=1000;
-    int floor=0;
+    int floor=currentF;
 signals:
 
 
