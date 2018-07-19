@@ -1,16 +1,20 @@
 #ifndef MONSTER_H
 #define MONSTER_H
 
-#include <block.h>
+#include "widget.h"
+#include "block.h"
+#include "hero.h"
 
+class Block;
+class Hero;
 class Monster:public Block
-  {
-  public:
+{
+public:
 
-     Monster(int,int,int,int,int,int);
-     void action(Hero *hero );
- private:
+     Monster(int id);
+     void action(Hero *hero);
+private:
      int id,life,attack,defence,money,experience;
-  };
+};
 
 #endif // MONSTER_H

@@ -31,7 +31,8 @@ SOURCES += \
     block.cpp \
     hero.cpp \
     monster.cpp \
-    floor.cpp
+    floor.cpp \
+    brick.cpp
 
 HEADERS += \
         widget.h \
@@ -40,11 +41,11 @@ HEADERS += \
     block.h \
     hero.h \
     monster.h \
-    floor.h
+    floor.h \
+    brick.h
 
 FORMS += \
         widget.ui
 
 RESOURCES += \
-    mymap.qrc \
-    myblock.qrc
+    mymap.qrc

@@ -3,10 +3,12 @@
 
 #include <QWidget>
 #include <QGraphicsPixmapItem>
-#include "hero.h"
-#include "gamewindow.h"
+
+
+
 
 class Hero;
+
 class Block : public QWidget
 {
     Q_OBJECT
@@ -20,7 +22,7 @@ public:
     QPointF cpos;
     void setPos(qreal x,qreal y);
     void setXY(int a,int b);
-    virtual void action(Hero *hero );
+    virtual void action(Hero *hero )=0;
 signals:
 
 public slots:

@@ -3,4 +3,62 @@
         <file>hero.png</file>
         <file>back.png</file>
     </qresource>
+    <qresource prefix="/floor">
+        <file>downstair.png</file>
+        <file>upstair.png</file>
+    </qresource>
+    <qresource prefix="/npc">
+        <file>npc1 (1).png</file>
+        <file>npc1 (3).png</file>
+        <file>npc1 (4).png</file>
+        <file>npc1 (5).png</file>
+        <file>npc1 (6).png</file>
+        <file>npc1 (9).png</file>
+        <file>npc1 (15).png</file>
+    </qresource>
+    <qresource prefix="/keyAndDoor">
+        <file>bk.png</file>
+        <file>bluedoor.png</file>
+        <file>reddoor.png</file>
+        <file>rk.png</file>
+        <file>yellowdoor.png</file>
+        <file>yk.png</file>
+    </qresource>
+    <qresource prefix="/myMonster">
+        <file>monster0.png</file>
+        <file>monster1.png</file>
+        <file>monster2.png</file>
+        <file>monster3.png</file>
+        <file>monster4.png</file>
+        <file>monster5.png</file>
+        <file>monster6.png</file>
+        <file>monster7.png</file>
+        <file>monster8.png</file>
+        <file>monster9.png</file>
+        <file>monster10.png</file>
+        <file>monster11.png</file>
+        <file>monster12.png</file>
+        <file>monster13.png</file>
+        <file>monster14.png</file>
+        <file>monster15.png</file>
+        <file>monster16.png</file>
+        <file>monster17.png</file>
+        <file>monster18.png</file>
+        <file>monster19.png</file>
+        <file>monster20.png</file>
+        <file>monster21.png</file>
+        <file>monster22.png</file>
+        <file>monster23.png</file>
+        <file>monster24.png</file>
+        <file>monster25.png</file>
+        <file>monster26.png</file>
+        <file>monster27.png</file>
+        <file>monster28.png</file>
+        <file>monster29.png</file>
+        <file>monster30.png</file>
+        <file>monster31.png</file>
+    </qresource>
+    <qresource prefix="/brick">
+        <file>brick.png</file>
+    </qresource>
 </RCC>

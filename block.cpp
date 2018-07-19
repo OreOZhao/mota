@@ -4,6 +4,7 @@ Block::Block(QWidget *parent) : QWidget(parent)
 {
     pix= new QPixmap(":/brick/brick.png");
     pix->scaledToHeight(40);
+ //   itempix->setPixmap(*pix);
     this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
 
 }

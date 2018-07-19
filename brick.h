@@ -1,5 +1,6 @@
-#ifndef FLOOR_H
-#define FLOOR_H
+#ifndef BRICK_H
+#define BRICK_H
+
 
 #include <QWidget>
 #include "block.h"
@@ -7,14 +8,12 @@
 
 class Block;
 class Hero;
-class Floor:public Block
+class Brick:public Block
 {
 public:
-    Floor(bool up);
+    Brick();
     void action(Hero *hero);
-private:
-    bool up;
 };
 
 
-#endif // FLOOR_H
+#endif // BRICK_H

@@ -1,79 +1,142 @@
 #include "monster.h"
-
-Monster::Monster(int i,int a,int b,int c,int d,int e)
+#include "block.h"
+#include "hero.h"
+Monster::Monster(int i)
 {
     id=i;
-    life=a;
-    attack=b;
-    defence=c;
-    money=d;
-    experience=e;
-    switch(id):
+    switch(id)
     {
-     case 0:
-        pix= new QPixmap(":/myMap/image/monster(0)");
+    case 0:
+        life=35;
+        attack=18;
+        defence=1;
+        money=1;
+        experience=1;
+        pix= new QPixmap(":/mymap.qrc/myMonster/monster0.png");
         pix->scaledToHeight(40);
         this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                             Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 1:
-       pix= new QPixmap(":/myMap/image/monster(1)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
                             Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 2:
-       pix= new QPixmap(":/myMap/image/monster(2)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 3:
-       pix= new QPixmap(":/myMap/image/monster(3)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 4:
-       pix= new QPixmap(":/myMap/image/monster(4)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 5:
-       pix= new QPixmap(":/myMap/image/monster(5)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 6:
-       pix= new QPixmap(":/myMap/image/monster(6)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 7:
-       pix= new QPixmap(":/myMap/image/monster(7)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 8:
-       pix= new QPixmap(":/myMap/image/monster(8)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 9:
-       pix= new QPixmap(":/myMap/image/monster(9)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    case 10:
-       pix= new QPixmap(":/myMap/image/monster(10)");
-       pix->scaledToHeight(40);
-       this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
-                            Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 1:
+        life=45;
+        attack=20;
+        defence=2;
+        money=2;
+        experience=2;
+        pix= new QPixmap(":/myMonster/monster1.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 2:
+        life=35;
+        attack=38;
+        defence=3;
+        money=3;
+        experience=3;
+        pix= new QPixmap(":/myMonster/monster2.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 3:
+        life=60;
+        attack=32;
+        defence=8;
+        money=5;
+        experience=5;
+        pix= new QPixmap(":/myMonster/monster3.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 4:
+        life=130;
+        attack=60;
+        defence=3;
+        money=8;
+        experience=8;
+        pix= new QPixmap(":/myMonster/monster4.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 5:
+        life=50;
+        attack=48;
+        defence=12;
+        money=12;
+        experience=12;
+        pix= new QPixmap(":/myMonster/monster5.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 6:
+        life=320;
+        attack=120;
+        defence=15;
+        money=30;
+        experience=30;
+        pix= new QPixmap(":/myMonster/monster6.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 7:
+        life=100;
+        attack=95;
+        defence=30;
+        money=22;
+        experience=2;
+        pix= new QPixmap(":/myMonster/monster7.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 8:
+        life=260;
+        attack=85;
+        defence=15;
+        money=18;
+        experience=18;
+        pix= new QPixmap(":/myMonster/monster8.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 9:
+        life=320;
+        attack=140;
+        defence=15;
+        money=30;
+        experience=30;
+        pix= new QPixmap(":/myMonster/monster9.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+   case 10:
+        life=500;
+        attack=400;
+        defence=150;
+        money=300;
+        experience=300;
+        pix= new QPixmap(":/myMonster/monster10.png");
+        pix->scaledToHeight(40);
+        this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
+                           Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
+        break;
+    }
 
 }
 
 void Monster::action(Hero* hero)
 {
-     int turn=life/(hero->getAtt()-defence);
-     hero->setLife(hero->getLife()-turn*(attack-hero->getDef())*attack);
-     hero->setMoney(hero->getMoney()+money);
-     hero->setExp(hero->getExp()+experience);
-     hide();
-     move(0,0);
+    int turn=life/(hero->getAtt()-defence);
+    hero->setLife(hero->getLife()-turn*(attack-hero->getDef())*attack);
+    hero->setMoney(hero->getMoney()+money);
+    hero->setExp(hero->getExp()+experience);
+    hide();
+    move(0,0);
 }

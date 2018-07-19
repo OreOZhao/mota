@@ -4,27 +4,30 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
-#include "hero.h"
+
 #include <QGraphicsView>
 #include <QPointF>
 #include <QKeyEvent>
 #include <QWidget>
 #include <QGraphicsItemGroup>
-#include "block.h"
+
 #include "widget.h"
+
+
 extern int currentF;
 extern int flag[9][11][11];
 class Hero;
 class Block;
 class Widget;
+class Monster;
 class GameWindow : public QGraphicsView
 {
     Q_OBJECT
 
 //    static Hero *hero;
 public:
-
-    explicit GameWindow(QWidget *parent = nullptr);
+    friend class Monster;
+    explicit GameWindow(QWidget *parent = nullptr,int floor=0);
     void keyPressEvent(QKeyEvent *event);
     QGraphicsScene *scene;
     GameWindow *upF;
