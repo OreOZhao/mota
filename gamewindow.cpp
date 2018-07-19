@@ -9,8 +9,7 @@ GameWindow::GameWindow(QWidget *parent) : QGraphicsView(parent)
 {
     hero=new Hero;
     Block * temp;
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
@@ -126,48 +125,434 @@ bool GameWindow::canArrive(qreal x,qreal y)
 
 void GameWindow::setMap(int i)//i==floor , loop in the widget constructor
 {
-    switch(i)
+    switch(i):
     {
     case 0:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[4][1]=new Monster(0,35,18,1,1,1);
+        bmap[4][3]=new Monster(1,45,20,2,2,2);
+        bmap[9][2]=new Monster(1,45,20,2,2,2);
+        bmap[2][7]=new Monster(1,45,20,2,2,2);
+        bmap[1][3]=new Monster(2,35,38,3,3,3);
+        bmap[7][1]=new Monster(2,35,38,3,3,3);
+        bmap[4][9]=new Monster(2,35,18,3,3,3);
+        bmap[10][0]=new Monster(3,60,32,8,5,5);
+        bmap[8][8]=new Monster(4,130,60,3,8,8);
+        flag[i][4][1]=1;
+        flag[i][4][3]=1;
+        flag[i][9][2]=1;
+        flag[i][2][7]=1;
+        flag[i][1][3]=1;
+        flag[i][7][1]=1;
+        flag[i][4][9]=1;
+        flag[i][10][0]=1;
+        flag[i][0][4]=1;
+        flag[i][1][4]=1;
+        flag[i][3][4]=1;
+        flag[i][4][4]=1;
+        flag[i][5][4]=1;
+        flag[i][6][4]=1;
+        flag[i][7][4]=1;
+        flag[i][9][4]=1;
+        flag[i][10][4]=1;
+
+        flag[i][4][0]=1;
+        flag[i][5][0]=1;
+        flag[i][6][0]=1;
+        flag[i][5][1]=1;
+        flag[i][5][2]=1;
+        flag[i][5][5]=1;
+        flag[i][5][6]=1;
+        flag[i][5][7]=1;
+        flag[i][5][9]=1;
+        for(int k=0;k<=9;k++)
+            flag[i][k][10]=1;
+        flag[i][10][10]=2;
     case 1:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[0][5]=new Monster(0,35,18,1,1,1);
+        bmap[6][4]=new Monster(0,35,18,1,1,1);
+        bmap[7][4]=new Monster(0,35,18,1,1,1);
+        bmap[9][4]=new Monster(0,35,18,1,1,1);
+        bmap[10][4]=new Monster(0,35,18,1,1,1);
+        bmap[8][4]=new Monster(1,45,20,2,2,2);
+        bmap[3][8]=new Monster(1,45,20,2,2,2);
+        bmap[4][8]=new Monster(1,45,20,2,2,2);
+        bmap[4][6]=new Monster(2,35,38,3,3,3);
+        bmap[10][9]=new Monster(2,35,38,3,3,3);
+        bmap[3][7]=new Monster(3,60,32,8,5,5);
+        bmap[10][1]=new Monster(3,60,32,8,5,5);
+
+        flag[i][0][5]=1;
+        flag[i][6][4]=1;
+        flag[i][7][4]=1;
+        flag[i][9][4]=1;
+        flag[i][10][4]=1;
+        flag[i][8][4]=1;
+        flag[i][3][8]=1;
+        flag[i][4][8]=1;
+        flag[i][4][6]=1;
+        flag[i][10][9]=1;
+        flag[i][3][7]=1;
+        flag[i][10][1]=1;
+
+        for(int k=0;k<=6;k++)
+            flag[i][5][k]=1;
+
+        flag[i][0][4]=1;
+        flag[i][2][4]=1;
+        flag[i][3][4]=1;
+        flag[i][4][4]=1;
+        flag[i][6][5]=1;
+        flag[i][7][5]=1;
+        flag[i][9][5]=1;
+        flag[i][10][5]=1;
+        flag[i][6][6]=1;
+        flag[i][7][6]=1;
+        flag[i][9][6]=1;
+        flag[i][10][6]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
+
     case 2:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[5][0]=new Monster(0,35,18,1,1,1);
+        bmap[7][3]=new Monster(1,45,20,2,2,2);
+        bmap[6][1]=new Monster(1,45,20,2,2,2);
+        bmap[10][0]=new Monster(2,35,38,3,3,3);
+        bmap[7][6]=new Monster(2,35,38,3,3,3);
+        bmap[1][4]=new Monster(2,35,38,3,3,3);
+        bmap[5][3]=new Monster(3,60,32,8,5,5);
+        bmap[0][10]=new Monster(4,130,60,3,8,8);
+
+        flag[i][5][0]=1;
+        flag[i][7][3]=1;
+        flag[i][6][1]=1;
+        flag[i][10][0]=1;
+        flag[i][7][6]=1;
+        flag[i][1][4]=1;
+        flag[i][5][3]=1;
+        flag[i][0][10]=1;
+
+        flag[i][6][0]=1;
+        flag[i][7][0]=1;
+        flag[i][8][0]=1;
+        flag[i][6][1]=1;
+        flag[i][10][1]=1;
+        flag[i][10][2]=1;
+        flag[i][6][3]=1;
+        flag[i][10][3]=1;
+        flag[i][5][4]=1;
+        flag[i][6][4]=1;
+        flag[i][7][4]=1;
+        flag[i][8][4]=1;
+        flag[i][0][5]=1;
+        flag[i][1][5]=1;
+        flag[i][2][5]=1;
+        flag[i][4][5]=1;
+        flag[i][5][5]=1;
+        flag[i][6][5]=1;
+        flag[i][9][5]=1;
+        flag[i][6][6]=1;
+        flag[i][6][7]=1;
+        flag[i][7][7]=1;
+        flag[i][7][9]=1;
+        flag[i][7][10]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 3:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[6][5]=new Monster(0,35,18,1,1,1);
+        bmap[4][1]=new Monster(1,45,20,2,2,2);
+        bmap[10][6]=new Monster(2,35,38,3,3,3);
+        bmap[0][10]=new Monster(3,60,32,8,5,5);
+        bmap[10][0]=new Monster(3,60,32,8,5,5);
+        bmap[2][6]=new Monster(4,130,60,3,8,8);
+        bmap[0][7]=new Monster(4,130,60,3,8,8);
+        bmap[7][9]=new Monster(4,130,60,3,8,8);
+
+        flag[i][6][5]=1;
+        flag[i][4][1]=1;
+        flag[i][10][6]=1;
+        flag[i][0][10]=1;
+        flag[i][10][0]=1;
+        flag[i][2][6]=1;
+        flag[i][0][7]=1;
+        flag[i][7][9]=1;
+
+        for(int k=3;k<=7;k++)
+            flag[i][k][0]=1;
+        flag[i][3][1]=1;
+        flag[i][3][2]=1;
+        flag[i][4][2]=1;
+        flag[i][7][2]=1;
+        flag[i][7][3]=1;
+        flag[i][3][4]=1;
+        flag[i][6][4]=1;
+        flag[i][7][4]=1;
+        flag[i][3][5]=1;
+        flag[i][7][5]=1;
+        flag[i][3][6]=1;
+        flag[i][7][6]=1;
+        flag[i][9][6]=1;
+        flag[i][2][7]=1;
+        flag[i][5][7]=1;
+        flag[i][7][7]=1;
+        flag[i][10][7]=1;
+        flag[i][0][8]=1;
+        flag[i][1][8]=1;
+        flag[i][5][8]=1;
+        flag[i][7][8]=1;
+        flag[i][8][8]=1;
+        flag[i][5][9]=1;
+        flag[i][5][10]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 4:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
+        bmap[7][3]=new Monster(0,35,18,1,1,1);
+        bmap[5][0]=new Monster(1,45,20,2,2,2);
+        bmap[10][1]=new Monster(4,130,60,3,8,8);
+        bmap[0][4]=new Monster(2,35,38,3,3,3);
+        bmap[4][8]=new Monster(3,60,32,8,5,5);
+        bmap[0][10]=new Monster(5,50,48,12,12,12);
+
+        flag[i][7][3]=1;
+        flag[i][5][0]=1;
+        flag[i][10][1]=1;
+        flag[i][0][4]=1;
+        flag[i][4][8]=1;
+        flag[i][0][10]=1;
+
+        flag[i][4][0]=1;
+        flag[i][4][1]=1;
+        flag[i][7][1]=1;
+        flag[i][4][2]=1;
+        flag[i][6][2]=1;
+        flag[i][8][2]=1;
+        flag[i][2][3]=1;
+        flag[i][4][3]=1;
+        flag[i][1][4]=1;
+        flag[i][6][4]=1;
+        flag[i][9][4]=1;
+        flag[i][0][5]=1;
+        flag[i][10][5]=1;
+        flag[i][5][6]=1;
+        flag[i][8][6]=1;
+        flag[i][1][7]=1;
+        flag[i][2][7]=1;
+        flag[i][3][7]=1;
+        flag[i][6][7]=1;
+        flag[i][9][7]=1;
+       for(int k=8;k<=10;k++)
+           flag[i][3][k]=1;
+       for(int k=7;k<=9;k++)
+           flag[i][k][8]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 5:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[2][2]=new Monster(0,35,18,1,1,1);
+        bmap[5][2]=new Monster(2,35,38,3,3,3);
+        bmap[8][2]=new Monster(1,45,20,2,2,2);
+        bmap[4][7]=new Monster(2,35,38,3,3,3);
+        bmap[6][7]=new Monster(3,60,32,8,5,5);
+        bmap[0][10]=new Monster(4,130,60,3,8,8);
+        bmap[6][10]=new Monster(5,50,48,12,12,12);
+
+        flag[i][2][2]=1;
+        flag[i][5][2]=1;
+        flag[i][8][2]=1;
+        flag[i][4][7]=1;
+        flag[i][6][7]=1;
+        flag[i][0][10]=1;
+        flag[i][6][10]=1;
+
+        flag[i][2][1]=1;
+        flag[i][3][1]=1;
+        flag[i][7][1]=1;
+        flag[i][8][1]=1;
+        flag[i][1][2]=1;
+        flag[i][4][2]=1;
+        flag[i][6][2]=1;
+        flag[i][9][2]=1;
+        flag[i][0][3]=1;
+        flag[i][10][3]=1;
+        flag[i][0][4]=1;
+        flag[i][5][4]=1;
+        flag[i][10][4]=1;
+        flag[i][1][5]=1;
+        flag[i][5][5]=1;
+        flag[i][9][5]=1;
+        flag[i][5][6]=1;
+        flag[i][0][7]=1;
+        flag[i][3][7]=1;
+        flag[i][5][7]=1;
+        flag[i][7][7]=1;
+        flag[i][8][7]=1;
+        flag[i][1][8]=1;
+        flag[i][3][8]=1;
+        flag[i][4][8]=1;
+        flag[i][5][8]=1;
+        flag[i][8][8]=1;
+        flag[i][10][8]=1;
+        flag[i][5][9]=1;
+        flag[i][3][10]=1;
+        flag[i][5][10]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 6:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[10][0]=new Monster(0,35,18,1,1,1);
+        bmap[4][1]=new Monster(2,35,38,3,3,3);
+        bmap[0][4]=new Monster(1,45,20,2,2,2);
+        bmap[5][4]=new Monster(2,35,38,3,3,3);
+        bmap[5][8]=new Monster(3,60,32,8,5,5);
+        bmap[8][9]=new Monster(4,130,60,3,8,8);
+        bmap[4][10]=new Monster(5,50,48,12,12,12);
+
+        flag[i][10][0]=1;
+        flag[i][4][1]=1;
+        flag[i][0][4]=1;
+        flag[i][5][4]=1;
+        flag[i][5][8]=1;
+        flag[i][8][9]=1;
+        flag[i][4][10]=1;
+
+        flag[i][5][0]=1;
+        flag[i][3][1]=1;
+        flag[i][6][1]=1;
+        flag[i][3][2]=1;
+        flag[i][4][2]=1;
+        flag[i][0][3]=1;
+        flag[i][1][3]=1;
+        flag[i][2][3]=1;
+        flag[i][3][3]=1;
+        flag[i][4][3]=1;
+        flag[i][5][3]=1;
+        flag[i][6][3]=1;
+        flag[i][7][3]=1;
+        flag[i][8][3]=1;
+        flag[i][10][3]=1;
+        flag[i][3][4]=1;
+        flag[i][5][5]=1;
+        flag[i][6][5]=1;
+        flag[i][8][5]=1;
+        flag[i][4][6]=1;
+        flag[i][5][6]=1;
+        flag[i][9][6]=1;
+        flag[i][4][7]=1;
+        flag[i][5][7]=1;
+        flag[i][6][7]=1;
+        flag[i][8][7]=1;
+        flag[i][4][8]=1;
+        flag[i][9][8]=1;
+        flag[i][5][9]=1;
+        flag[i][10][9]=1;
+        flag[i][4][10]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 7:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
+        bmap[5][1]=new Monster(7,100,95,30,22,22);
+        bmap[9][2]=new Monster(7,100,95,30,22,22);
+        bmap[0][3]=new Monster(3,60,32,8,5,5);
+        bmap[2][4]=new Monster(7,100,95,30,22);
+        bmap[4][5]=new Monster(8,260,85,15,18,18);
+        bmap[7][5]=new Monster(4,130,60,3,8,8);
+        bmap[10][5]=new Monster(8,260,85,15,18,18);
+        bmap[5][9]=new Monster(6,320,120,15,30,30);
+
+        flag[i][5][1]=1;
+        flag[i][9][2]=1;
+        flag[i][0][3]=1;
+        flag[i][2][4]=1;
+        flag[i][4][5]=1;
+        flag[i][7][5]=1;
+        flag[i][10][5]=1;
+        flag[i][5][9]=1;
+
+        flag[i][4][0]=1;
+        flag[i][5][0]=1;
+        flag[i][4][1]=1;
+        flag[i][6][1]=1;
+        flag[i][6][2]=1;
+        flag[i][10][2]=1;
+        flag[i][3][3]=1;
+        flag[i][4][3]=1;
+        flag[i][8][3]=1;
+        flag[i][9][3]=1;
+        flag[i][3][4]=1;
+        flag[i][5][4]=1;
+        flag[i][6][4]=1;
+        flag[i][7][4]=1;
+        flag[i][0][5]=1;
+        flag[i][2][5]=1;
+        flag[i][3][5]=1;
+        flag[i][5][5]=1;
+        flag[i][2][6]=1;
+        flag[i][1][7]=1;
+        flag[i][5][7]=1;
+        flag[i][6][7]=1;
+        flag[i][7][7]=1;
+        flag[i][9][7]=1;
+        flag[i][10][7]=1;
+        flag[i][0][8]=1;
+        flag[i][9][8]=1;
+        flag[i][9][10]=1;
+
+        flag[i][0][0]=3;
+        flag[i][10][10]=2;
     case 8:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
-    case 9:
-        bmap[i][i]=new Block;
-        flag[i][i][i]=2;
-        break;
-    }
+        bmap[2][0]=new Monster(3,60,32,8,5,5);
+        bmap[10][0]=new Monster(9,320,140,15,30,30);
+        bmap[6][2]=new Monster(3,60,32,8,5,5);
+        bmap[2][3]=new Monster(7,100,95,30,22,22);
+        bmap[9][3]=new Monster(8,260,85,15,18,18);
+        bmap[7][6]=new Monster(4,130,60,3,8,8);
+        bmap[10][7]=new Monster(5,50,48,12,12,12);
+        bmap[0][8]=new Monster(6,320,120,15,30,30);
+        bmap[6][9]=new Monster(10,500,400,150,300,300);
+
+        flag[i][2][0]=1;
+        flag[i][10][0]=1;
+        flag[i][6][2]=1;
+        flag[i][2][3]=1;
+        flag[i][9][3]=1;
+        flag[i][7][6]=1;
+        flag[i][10][7]=1;
+        flag[i][0][8]=1;
+        flag[i][6][9]=1;
+
+        flag[i][3][0]=1;
+        flag[i][4][0]=1;
+        flag[i][3][1]=1;
+        flag[i][3][2]=1;
+        flag[i][5][2]=1;
+        flag[i][3][3]=1;
+        flag[i][7][3]=1;
+        flag[i][8][3]=1;
+        flag[i][2][4]=1;
+        flag[i][5][4]=1;
+        flag[i][7][4]=1;
+        flag[i][9][4]=1;
+        flag[i][0][5]=1;
+        flag[i][3][5]=1;
+        flag[i][4][5]=1;
+        flag[i][5][5]=1;
+        flag[i][7][5]=1;
+        flag[i][0][6]=1;
+        flag[i][1][6]=1;
+        flag[i][9][6]=1;
+        flag[i][10][6]=1;
+        flag[i][4][7]=1;
+        flag[i][7][7]=1;
+        flag[i][5][8]=1;
+        flag[i][8][8]=1;
+        flag[i][4][9]=1;
+        flag[i][9][9]=1;
+        flag[i][3][10]=1;
+
+        flag[i][0][0]=3;
+
     /*
     bmap[1][2][2]=new Block;
     flag[1][2][2]=2;
