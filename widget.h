@@ -7,7 +7,8 @@
 #include <QGraphicsScene>
 #include <QPaintEvent>
 #include <QKeyEvent>
-
+#include<QLabel>
+#include<QLCDNumber>
 
 
 namespace Ui {
@@ -30,6 +31,25 @@ public:
 
 private:
     Ui::Widget *ui;
+    QLabel*name;
+    QLCDNumber*life;
+    QLCDNumber*att;
+    QLCDNumber*def;
+    QLCDNumber*money;
+    QLCDNumber*exp;
+    QLCDNumber*redk;
+    QLCDNumber*bluek;
+    QLCDNumber*goldk;
+    QLCDNumber*floor;
+    QLabel*life_1;
+    QLabel*att_1;
+    QLabel*def_1;
+    QLabel*money_1;
+    QLabel*exp_1;
+    QLabel*redk_1;
+    QLabel*bluek_1;
+    QLabel*goldk_1;
+    QLabel*floor_1;
 public slots:
   //  void blockUpdate();
     void floUp();

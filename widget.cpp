@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QThread>
 #include "monster.h"
+#include<QLabel>
 Hero *currentH;
 extern int currentF;
 extern int flag[9][11][11];
@@ -18,6 +19,8 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
+
+
     // show data
 
    // QHBoxLayout *layout=new QHBoxLayout;
@@ -37,6 +40,8 @@ Widget::Widget(QWidget *parent) :
     //scene & view
 
     scene = new QGraphicsScene(this);
+
+
     for(int i=0;i<9;i++){
         client[i] =  new GameWindow(this);//view
         client[i]->setMap(i);
@@ -131,6 +136,101 @@ Widget::Widget(QWidget *parent) :
     qDebug()<<client[8]->isVisible();
     client[0]->setWindowFlags(Qt::WindowStaysOnBottomHint);
 
+    name=new QLabel("HERO");
+    name->move(100,60);
+    name->resize(90,40);
+
+    life_1=new QLabel("HP");
+    life_1->move(40,100);
+    life_1->resize(60,40);
+    life=new QLCDNumber();
+    life->display(currentH->getLife());
+    life->move(100,100);
+    life->resize(90,40);
+
+    att_1=new QLabel("ATT");
+    att_1->move(40,140);
+    att_1->resize(60,40);
+    att=new QLCDNumber();
+    att->display(currentH->getAtt());
+    att->move(100,140);
+    att->resize(90,40);
+
+    def_1=new QLabel("DEF");
+    def_1->move(40,180);
+    def_1->resize(60,40);
+    def=new QLCDNumber();
+    def->display(currentH->getDef());
+    def->move(100,180);
+    def->resize(90,40);
+
+    exp_1=new QLabel("EXP");
+    exp_1->move(40,220);
+    exp_1->resize(60,40);
+    exp=new QLCDNumber();
+    exp->display(currentH->getExp());
+    exp->move(100,220);
+    exp->resize(90,40);
+
+    money_1=new QLabel("MONEY");
+    money_1->move(40,270);
+    money_1->resize(60,40);
+    money=new QLCDNumber();
+    money->display(currentH->getMoney());
+    money->move(100,270);
+    money->resize(90,40);
+
+    redk_1=new QLabel("REDK");
+    redk_1->move(40,310);
+    redk_1->resize(60,40);
+    redk=new QLCDNumber();
+    redk->display(currentH->getRKey());
+    redk->move(100,310);
+    redk->resize(90,40);
+
+    bluek_1=new QLabel("BLUEK");
+    bluek_1->move(40,350);
+    bluek_1->resize(60,40);
+    bluek=new QLCDNumber();
+    bluek->display(currentH->getBKey());
+    bluek->move(100,350);
+    bluek->resize(90,40);
+
+    goldk_1=new QLabel("GOLDK");
+    goldk_1->move(40,390);
+    goldk_1->resize(60,40);
+    goldk=new QLCDNumber();
+    goldk->display(currentH->getGKey());
+    goldk->move(100,390);
+    goldk->resize(90,40);
+
+    floor_1=new QLabel("FLOOR");
+    floor_1->move(40,450);
+    floor_1->resize(60,40);
+    floor=new QLCDNumber();
+    floor->display(currentH->getFloor());
+    floor->move(100,450);
+    floor->resize(90,40);
+
+    scene->addWidget(name);
+    scene->addWidget(life_1);
+    scene->addWidget(att_1);
+    scene->addWidget(def_1);
+    scene->addWidget(exp_1);
+    scene->addWidget(money_1);
+    scene->addWidget(redk_1);
+    scene->addWidget(bluek_1);
+    scene->addWidget(goldk_1);
+    scene->addWidget(floor_1);
+    scene->addWidget(life);
+    scene->addWidget(att);
+    scene->addWidget(def);
+    scene->addWidget(exp);
+    scene->addWidget(money);
+    scene->addWidget(redk);
+    scene->addWidget(bluek);
+    scene->addWidget(goldk);
+    scene->addWidget(floor);
 }
 
 Widget::~Widget()
@@ -171,7 +271,7 @@ void Widget::floUp()
     currentF++;
     for(int i=0;i<9;i++){
         if(i==currentF){
-            client[i]->show();
+            client[ i]->show();
             client[i]->hero->itempix->show();
             for(int x=0;x<11;x++){
                 for(int y=0;y<11;y++){
@@ -204,6 +304,8 @@ void Widget::floUp()
     qDebug()<<"cf"<<currentF<<client[currentF]->isVisible();
     client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
     update();
+    floor->display(currentH->getFloor());
+    scene->addWidget(floor);
 }
 
 void Widget::floDown()
