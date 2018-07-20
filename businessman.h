@@ -10,19 +10,24 @@
 class Block;
 class Hero;
 
-class businessMan : public QWidget,pubilc Block
+class businessMan :public Block
 {
 private:
+    Hero *hero;
     int id,cost,addHp,addAtt,addDef,addGKey,addBKey,addRKey;
-    QDilog *shop = new QDialog(this);
+    QDialog *shop = new QDialog(this);
 
 public:
-    virtual void action(Hero *hero);
+    businessMan(int);//initial with business man id
+    virtual void action(Hero *hero);//hezitated from block|| a virtual function
 
 signals:
 
 public slots:
-    void buy();
+    void buyA();
+    void buyB();
+    void buyC();
+
 };
 
 #endif // BUSINESSMAN_H
