@@ -32,7 +32,8 @@ SOURCES += \
     hero.cpp \
     monster.cpp \
     floor.cpp \
-    brick.cpp
+    brick.cpp \
+    businessman.cpp
 
 HEADERS += \
         widget.h \
@@ -42,7 +43,8 @@ HEADERS += \
     hero.h \
     monster.h \
     floor.h \
-    brick.h
+    brick.h \
+    businessman.h
 
 FORMS += \
         widget.ui
