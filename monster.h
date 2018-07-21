@@ -7,14 +7,22 @@
 
 class Block;
 class Hero;
+
 class Monster:public Block
 {
+
 public:
 
      Monster(int id);
      void action(Hero *hero);
+signals:
+
+
 private:
      int id,life,attack,defence,money,experience;
+
+
+
 };
 
 #endif // MONSTER_H

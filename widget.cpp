@@ -1,47 +1,30 @@
 #include "widget.h"
 #include "ui_widget.h"
-#include <QHBoxLayout>
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include "info.h"
 #include "hero.h"
 #include "gamewindow.h"
+#include "monster.h"
+
 #include <QHBoxLayout>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QDebug>
 #include <QThread>
-#include "monster.h"
-#include<QLabel>
+
 Hero *currentH;
 extern int currentF;
 extern int flag[9][11][11];
+extern Block *hi;
+
+
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
 
-
-    // show data
-
-   // QHBoxLayout *layout=new QHBoxLayout;
-    /*
-    layout->addWidget(ui->Level);
-    layout->addWidget(ui->lifeValue);
-    layout->addWidget(ui->attackValue);
-    layout->addWidget(ui->defenceValue);
-    layout->addWidget(ui->money);
-    layout->addWidget(ui->experience);
-    layout->addWidget(ui->goldKey);
-    layout->addWidget(ui->blueKey);
-    layout->addWidget(ui->redKey);
-    layout->addWidget(ui->floor);
-    setLayout(layout);
-*/
     //scene & view
-
     scene = new QGraphicsScene(this);
-
-
     for(int i=0;i<9;i++){
         client[i] =  new GameWindow(this);//view
         client[i]->setMap(i);
@@ -53,9 +36,10 @@ Widget::Widget(QWidget *parent) :
         client[i]->setFixedHeight(520);  //view
         client[i]->setFixedWidth(720);
         client[i]->scene->setSceneRect(0,0,720,520); //scene
+
         //hero
         client[i]->hero->itempix = scene->addPixmap(*client[i]->hero->pix);
-        client[i]->hero->setXY(0, 0);
+        client[i]->hero->setXY(0, 1);
         client[i]->hero->setFloor(i);
 
         //set itempix to scene
@@ -65,15 +49,15 @@ Widget::Widget(QWidget *parent) :
                 {
                 client[i]->bmap[x][y]->itempix=scene->addPixmap(*client[i]->bmap[x][y]->pix);
                 client[i]->bmap[x][y]->setXY(x,y);
- //               qDebug()<<i<<"bmap"<<x<<y<<"set";
-          //      client[i]->scene->addItem(client[i]->bmap[1][1]->itempix);
                 }
             }
         }
+
+        //show & hide
         if(i==currentF){
-//            qDebug()<<"currentF:"<<currentF;
             client[i]->show();
-            client[i]->hero->itempix->show();
+            currentH=client[i]->hero;
+            currentH->itempix->show();
             client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
             currentH=client[currentF]->hero;
             for(int x=0;x<11;x++){
@@ -83,7 +67,6 @@ Widget::Widget(QWidget *parent) :
                     }
                 }
             }
-            qDebug()<<i<<":show";
         }
         else {
             client[i]->hide();
@@ -96,46 +79,20 @@ Widget::Widget(QWidget *parent) :
                     }
                 }
             }
-//            qDebug()<<i<<":hide";
         }
 
+        qDebug()<<"client"<<i<<"ok";
     }
 
-  //  setLayout(layout);
-
-
-    client[0]->upF=client[1];
-    for(int i=1;i<8;i++)
+    for(int i=0;i<9;i++)
     {
-        client[i]->upF=client[i+1];
-        client[i]->downF=client[i-1];
+      //  client[i]->focusB=client[i]->bmap[0][0];
     }
-    client[8]->downF=client[7];
 
     connect(client[currentF],&GameWindow::floorUp,this,&Widget::floUp);
     connect(client[currentF],&GameWindow::floorDown,this,&Widget::floDown);
-/*
-    for(int i=0;i<9;i++){
-        if(i==currentF){
-            qDebug()<<currentF;
-            client[i]->hide();
-     //       client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
-            currentH=client[currentF]->hero;
-            qDebug()<<i<<":show";
-        }
-        else {
-            client[i]->hide();
-     //       client[i]->setWindowFlags(Qt::WindowStaysOnBottomHint);
-            qDebug()<<i<<":hide";
-        }
 
-    }
-    */
-
-    client[0]->show();
-    qDebug()<<client[8]->isVisible();
-    client[0]->setWindowFlags(Qt::WindowStaysOnBottomHint);
-
+    //set display dock
     name=new QLabel("HERO");
     name->move(100,60);
     name->resize(90,40);
@@ -231,11 +188,29 @@ Widget::Widget(QWidget *parent) :
     scene->addWidget(bluek);
     scene->addWidget(goldk);
     scene->addWidget(floor);
+
+    connect(client[currentF]->focusB,&Block::changed,this,&Widget::setDisplay);
 }
 
 Widget::~Widget()
 {
     delete ui;
+
+    for(int i=0;i<9;i++)
+    {
+        qDebug()<<"delete "<<i;
+        for(int x=0;x<11;x++)
+        {
+            for(int y=0;y<11;y++)
+            {
+                if(flag[i][x][y]!=0)
+                {
+
+                    delete client[i]->bmap[x][y];
+                }
+            }
+        }
+    }
 }
 
 void Widget::paintEvent(QPaintEvent *event)
@@ -248,31 +223,30 @@ void Widget::paintEvent(QPaintEvent *event)
     mapHeight=this->height();
 }
 
-/*
-void Widget::blockUpdate()
-{
-    ui->Level->display(client->hero->getLevel());
-    ui->Level->raise();
-    ui->lifeValue->display(client->hero->getLife());
-    ui->attackValue->display(client->hero->getAtt());
-    ui->defenceValue->display(client->hero->getDef());
-    ui->experience->display(client->hero->getExp());
-    ui->money->display(client->hero->getMoney());
-    ui->goldKey->display(client->hero->getBKey());
-    ui->redKey->display(client->hero->getRKey());
-    ui->blueKey->display(client->hero->getBKey());
-}
-*/
-
 void Widget::floUp()
 {
     qDebug()<<currentF<<"upupup";
-
+    currentH->itempix->hide();
+    delete client[currentF]->focusB;
     currentF++;
+    currentH=client[currentF]->hero;
+    qDebug()<<"after delete"<<client[currentF]->focusB->cpos.x();
+    client[currentF]->focusB=new Block;
+    client[currentF]->focusB=client[currentF]->bmap[0][0];
+    hi=client[currentF]->focusB;
+    qDebug()<<"after new "<<client[currentF]->focusB->cpos.x();
+
+    connect(client[currentF]->focusB,&Block::changed,this,&Widget::setDisplay);
+    qDebug()<<client[currentF]->focusB->cpos.x();
+  //  qDebug()<<currentH->getFloor();
+    currentH->setFloor(currentF);
+  //  floor->setText(QString::number(currentF));
+   // qDebug()<<"hero's floor"<<currentH->getFloor();
+
     for(int i=0;i<9;i++){
         if(i==currentF){
-            client[ i]->show();
-            client[i]->hero->itempix->show();
+            client[i]->show();
+            currentH->itempix->show();
             for(int x=0;x<11;x++){
                 for(int y=0;y<11;y++){
                     if(flag[i][x][y]!=0){
@@ -280,12 +254,9 @@ void Widget::floUp()
                     }
                 }
             }
-            currentH=client[currentF]->hero;
-  //          qDebug()<<i<<":show";
         }
         else{
             client[i]->hide();
-            client[i]->hero->itempix->hide();
             for(int x=0;x<11;x++){
                 for(int y=0;y<11;y++){
                     if(flag[i][x][y]!=0){
@@ -293,48 +264,80 @@ void Widget::floUp()
                     }
                 }
             }
-   //         qDebug()<<i<<":hide";
         }
-
     }
 
-    client[currentF]->hero->setXY(0,1);
+    //client[currentF]->hero->setXY(0,1);
     client[currentF]->hero->copyHero(client[currentF-1]->hero);
 
-    qDebug()<<"cf"<<currentF<<client[currentF]->isVisible();
+    qDebug()<<"copied"<<currentH->getLife()<<client[currentF]->hero->getLife();;
+
     client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
     update();
     floor->display(currentH->getFloor());
-    scene->addWidget(floor);
 }
 
 void Widget::floDown()
 {
 
     qDebug()<<currentF<<"downdowndown";
-
+    currentH->itempix->hide();
     currentF--;
+    currentH=client[currentF]->hero;
+
     for(int i=0;i<9;i++){
         if(i==currentF){
             client[i]->show();
-
-            currentH=client[currentF]->hero;
-            qDebug()<<i<<":show";
+            currentH->itempix->show();
+            for(int x=0;x<11;x++){
+                for(int y=0;y<11;y++){
+                    if(flag[i][x][y]!=0){
+                        client[i]->bmap[x][y]->itempix->show();
+                    }
+                }
+            }
         }
         else{
             client[i]->hide();
-            qDebug()<<i<<":hide";
+            for(int x=0;x<11;x++){
+                for(int y=0;y<11;y++){
+                    if(flag[i][x][y]!=0){
+                        client[i]->bmap[x][y]->itempix->hide();
+                    }
+                }
+            }
         }
     }
-    client[currentF]->hero->setXY(11,11);
+
+   // client[currentF]->hero->setXY(10,9);
     client[currentF]->hero->copyHero(client[currentF+1]->hero);
 
-    qDebug()<<"cf"<<currentF<<client[currentF]->isVisible();
+    qDebug()<<"copied"<<currentH->getLife()<<client[currentF]->hero->getLife();
     client[currentF]->setWindowFlags(Qt::WindowStaysOnTopHint);
-    update();
+    floor->display(currentH->getFloor());
 }
 
 //bmap & flag set to static data in gamewindow
 //initialize bmap & flag
 
 //currentfloor global variable
+/*
+void Widget::clear()
+{
+    qDebug()<<"clear";
+}
+*
+*/
+
+void Widget::setDisplay()
+{
+    qDebug()<<"display";
+    life->display(currentH->getLife());
+    att->display(currentH->getAtt());
+    def->display(currentH->getDef());
+    exp->display(currentH->getExp());
+    money->display(currentH->getMoney());
+    redk->display(currentH->getRKey());
+    bluek->display(currentH->getBKey());
+    goldk->display(currentH->getGKey());
+}

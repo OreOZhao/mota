@@ -1,6 +1,7 @@
 #include "monster.h"
 #include "block.h"
 #include "hero.h"
+#include <QDebug>
 Monster::Monster(int i)
 {
     id=i;
@@ -12,7 +13,7 @@ Monster::Monster(int i)
         defence=1;
         money=1;
         experience=1;
-        pix= new QPixmap(":/mymap.qrc/myMonster/monster0.png");
+        pix= new QPixmap(":/myMonster/monster0.png");
         pix->scaledToHeight(40);
         this->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint |
                             Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
@@ -133,10 +134,19 @@ Monster::Monster(int i)
 
 void Monster::action(Hero* hero)
 {
+    qDebug()<<"hi monster";
     int turn=life/(hero->getAtt()-defence);
-    hero->setLife(hero->getLife()-turn*(attack-hero->getDef())*attack);
-    hero->setMoney(hero->getMoney()+money);
-    hero->setExp(hero->getExp()+experience);
-    hide();
-    move(0,0);
+
+    qDebug()<<turn<<hero->getLife()-turn*(attack-hero->getDef())*attack<<
+              "monster";
+    if(turn > 0 && (hero->getLife()-turn*(attack-hero->getDef())*attack)>0){
+        hero->setLife(hero->getLife()-turn*(attack-hero->getDef())*attack);
+        hero->setMoney(hero->getMoney()+money);
+        hero->setExp(hero->getExp()+experience);
+        emit clearing();
+        qDebug()<<hero->getLife();
+      //  qDebug()<<"emitted";
+
+    }
+    emit changed();
 }

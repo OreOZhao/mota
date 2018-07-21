@@ -9,23 +9,21 @@
 #include <block.h>
 
 extern int currentF;
+
 class Hero : public QWidget
 {
+
     Q_OBJECT
-
-    //explicit Hero(QWidget *parent = nullptr);
 public:
-
     explicit Hero(QWidget *parent = nullptr);
-
     QGraphicsPixmapItem *itempix;
-
+    QPixmap *pix;
     void copyHero(Hero *hero);
+
     /*------keys------*/
     void setRKey(int r){redKey=r;}
     void setGKey(int g){goldKey=g;}
     void setBKey(int b){blueKey=b;}
-
     int getRKey(){return redKey;}
     int getGKey(){return goldKey;}
     int getBKey(){return blueKey;}
@@ -45,13 +43,10 @@ public:
     /*------money------*/
     void setMoney(int m){moneyVal=m;}
     int getMoney(){return moneyVal;}
-    /*------position&move------*/
-
+    /*------position------*/
     void setPos(qreal x,qreal y);
     void setXY(int a,int b);
-    QPixmap *pix;
     QPointF cpos,arrivepos;
-
     int getFloor(){return floor;}
     void setFloor(int f){floor=f;}
     /*------block------*/
@@ -67,15 +62,12 @@ private:
     int attackVal=10;
     int defenceVal=10;
     int solLevel=1;
-    int lifeVal=1000;
+    int lifeVal=10000;
     int floor=currentF;
 signals:
-
-
     void pkSignal();
     void buySignal();
     void pickSignal();
-
 public slots:
 
 };

@@ -6,6 +6,7 @@
 #include "block.h"
 #include "floor.h"
 #include "brick.h"
+
 class Monster;
 extern int currentF;
 extern Hero* currentH;
@@ -14,25 +15,46 @@ class Block;
 class Hero;
 class Brick;
 class Floor;
+Block *hi;
+
 GameWindow::GameWindow(QWidget *parent,int i) : QGraphicsView(parent)
 {
     //i==floor
     hero=new Hero;
+    hi=new Block;
+//    qDebug()<<"focus on"<<focusB->cpos.x()<<focusB->cpos.y();
     setMap(i);
+    if(i==0){
+        focusB=new Block;
+       //  focusB=bmap[0][0];
+    }
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+}
+
+GameWindow::~GameWindow()
+{
+    qDebug()<<"delete hero & focus block";
+    delete hero;
+    delete focusB;
 }
 
 void GameWindow::keyPressEvent(QKeyEvent *event)
 {
 
+ //   qDebug()<<"connect";
+    //qDebug()<<currentH->getFloor();
     int x=currentH->cpos.x();
     int y=currentH->cpos.y();
     int f=currentF;
    // qDebug()<<"hf"<<f<<currentH->getFloor();
     int a=(currentH->cpos.x()-240)/40;
     int b=(currentH->cpos.y()-40)/40;
-
+ //   hi=this->bmap[0][0];
+    focusB=hi;
+//    focusB=bmap[0][0];
+    qDebug()<<focusB->cpos.x();
+    qDebug()<<hi->cpos.x();
     {
         switch(event->key())
         {
@@ -44,7 +66,10 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x,y-40);break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==1)
             {
+                this->focusB=this->bmap[a][b];
+                connect(this->focusB,&Block::clearing,this,&GameWindow::clear);
                 bmap[a][b]->action(currentH);
+                qDebug()<<"focus"<<a<<b;
                 break;
             }else if(canArrive(x,y-40)&&flag[f][a][b]==2)//floor up
             {
@@ -63,7 +88,12 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x,y+40);break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==1)
             {
-                bmap[a][b]->action(currentH);
+
+                this->focusB=this->bmap[a][b];
+                connect(focusB,&Block::clearing,this,&GameWindow::clear);
+                qDebug()<<"connected";
+                focusB->action(currentH);
+                qDebug()<<"actioned";
                 break;
             }else if(canArrive(x,y+40)&&flag[f][a][b]==2)//floor up
             {
@@ -82,7 +112,9 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x+40,y);break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==1)
             {
-                bmap[a][b]->action(currentH);
+                this->focusB=this->bmap[a][b];
+                connect(focusB,&Block::clearing,this,&GameWindow::clear);
+                focusB->action(currentH);
                 break;
             }else if(canArrive(x+40,y)&&flag[f][a][b]==2)//floor up
             {
@@ -101,8 +133,9 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
                 currentH->setPos(x-40,y);break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==1)
             {
-                bmap[a][b]->action(currentH);
-
+                this->focusB=this->bmap[a][b];
+                connect(focusB,&Block::clearing,this,&GameWindow::clear);
+                focusB->action(currentH);
                 break;
             }else if(canArrive(x-40,y)&&flag[f][a][b]==2)//floor up
             {
@@ -117,6 +150,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         }
      //   qDebug()<<currentH->cpos.x()<<currentH->cpos.y();
         update();
+
         }
 }
 
@@ -341,7 +375,6 @@ void GameWindow::setMap(int i)//i==floor , loop in the widget constructor
         flag[i][0][0]=3;
         bmap[10][10]=new Floor(true);
         flag[i][10][10]=2;
-        qDebug()<<i<<"ok";
         break;
     case 3:
         bmap[6][5]=new Monster(0);
@@ -826,7 +859,7 @@ void GameWindow::setMap(int i)//i==floor , loop in the widget constructor
 
         break;
     }
-    qDebug()<<i<<"ok";
+ //   qDebug()<<i<<"ok";
 }
 /*
 void GameWindow::floorUpdate(int f,bool up)
@@ -863,7 +896,19 @@ void GameWindow::floorUpdate(int f,bool up)
         }
     }
 
-
 }
 
 */
+
+
+
+void GameWindow::clear()
+{
+    focusB->hide();
+    focusB->itempix->hide();
+    int x=(focusB->cpos.x()-240)/40;
+    int y=(focusB->cpos.y()-40)/40;
+    flag[currentF][x][y]=0;
+}
+
+
