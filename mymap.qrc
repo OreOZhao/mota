@@ -1,0 +1,57 @@
+<RCC>
+    <qresource prefix="/myMap">
+        <file>defaultHero.png</file>
+        <file>back.png</file>
+        <file>hero.png</file>
+        <file>mbhero.png</file>
+        <file>black.png</file>
+    </qresource>
+    <qresource prefix="/floor">
+        <file>downstair.png</file>
+        <file>upstair.png</file>
+    </qresource>
+    <qresource prefix="/npc">
+        <file>npc1 (1).png</file>
+        <file>duke.png</file>
+        <file>tux.png</file>
+        <file>mysql.png</file>
+        <file>princess.png</file>
+        <file>origin.png</file>
+        <file>battlenet.png</file>
+        <file>steam.png</file>
+    </qresource>
+    <qresource prefix="/keyAndDoor">
+        <file>bk.png</file>
+        <file>bluedoor.png</file>
+        <file>reddoor.png</file>
+        <file>rk.png</file>
+        <file>golddoor.png</file>
+        <file>gk.png</file>
+    </qresource>
+    <qresource prefix="/brick">
+        <file>brick.png</file>
+    </qresource>
+    <qresource prefix="/prop">
+        <file>addatt1.png</file>
+        <file>adddef1.png</file>
+        <file>addlife1.png</file>
+        <file>addlife.png</file>
+        <file>addatt.png</file>
+        <file>adddef.png</file>
+    </qresource>
+    <qresource prefix="/myMonster">
+        <file>tencent.png</file>
+        <file>monster0.png</file>
+        <file>monster1.png</file>
+        <file>monster2.png</file>
+        <file>monster3.png</file>
+        <file>monster4.png</file>
+        <file>monster5.png</file>
+        <file>monster6.png</file>
+        <file>monster7.png</file>
+        <file>monster8.png</file>
+        <file>monster9.png</file>
+        <file>monster10.png</file>
+        <file>monster11.png</file>
+    </qresource>
+</RCC>
